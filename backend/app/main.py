@@ -12,7 +12,8 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],  # Move to env later
+    allow_origins=["http://localhost:5173",
+                   "https://taskforge-1-ox2x.onrender.com"],  # Move to env later
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
