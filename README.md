@@ -1,72 +1,106 @@
 🚀 TaskForge
 
-A modern full-stack task management application built with FastAPI, PostgreSQL, React, and Docker.
+A modern, production-ready full-stack task management application built with FastAPI, PostgreSQL, React (Vite), and Docker.
 
-TaskForge provides secure authentication, JWT-based access control, refresh tokens, and a clean UI for managing tasks.
+TaskForge implements secure JWT authentication, refresh token rotation, protected routes, and a fully containerized architecture suitable for real-world deployment.
 
 🏗 Tech Stack
-Backend:
+🔹 Backend
 
 FastAPI
-SQLAlchemy (ORM)
-PostgreSQL
-Alembic (Database migrations)
-JWT Authentication (Access + Refresh tokens)
-Argon2 password hashing
 
-Frontend:
+SQLAlchemy (ORM)
+
+PostgreSQL
+
+Alembic (Database migrations)
+
+JWT Authentication (Access + Refresh tokens)
+
+Argon2 Password Hashing
+
+Pydantic Settings (Environment-based config)
+
+🔹 Frontend
 
 React (Vite)
+
 TypeScript
-Axios
+
+Axios (with automatic token refresh interceptor)
+
 React Router
 
-DevOps:
+🔹 DevOps
+
 Docker
+
 Docker Compose
 
-✨ Features:
+Production deployment ready
 
-User Registration & Login
-Secure JWT Authentication
-Refresh Token Rotation
-Protected Routes
-Task CRUD Operations
-Database Migrations via Alembic
-Dockerized Full Stack Setup
+Environment-based configuration
 
-📦 Project Structure:
-project/
+✨ Features
+
+✅ User Registration & Login
+
+🔐 Secure JWT Authentication
+
+🔄 Refresh Token Rotation
+
+🛡 Protected API Routes
+
+📝 Task CRUD Operations
+
+🗃 Database Migrations via Alembic
+
+🐳 Fully Dockerized Full Stack Setup
+
+🌍 Production Deployment Ready
+
+📦 Project Structure
+TaskForge/
 │
 ├── backend/
 │   ├── app/
+│   │   ├── routers/
+│   │   ├── models.py
+│   │   ├── schemas.py
+│   │   ├── database.py
+│   │   ├── config.py
+│   │   └── main.py
 │   ├── migrations/
 │   ├── alembic.ini
 │   └── Dockerfile
 │
 ├── frontend/
+│   ├── src/
 │   └── Dockerfile
 │
 └── docker-compose.yml
 
-🐳 Run with Docker (Recommended):
+🐳 Run with Docker (Recommended)
 
-Make sure Docker Desktop is running.
+Ensure Docker Desktop is running.
 
-1️⃣ Clone the repository
+1️⃣ Clone the Repository
 git clone https://github.com/YOUR_USERNAME/TaskForge.git
 cd TaskForge
 
-2️⃣ Start the application
+2️⃣ Start the Application
 docker compose up --build
 
-3️⃣ Access the app
+3️⃣ Access the Application
 
-Frontend: http://localhost:5173
+Frontend:
+http://localhost:5173
 
-Backend API: http://localhost:8000
+Backend API:
+http://localhost:8000
 
-API Docs (Swagger): http://localhost:8000/docs
+Swagger Docs:
+http://localhost:8000/docs
 
 🛠 Manual Setup (Without Docker)
 Backend
@@ -88,13 +122,41 @@ SECRET_KEY=your-secret-key
 DATABASE_URL=postgresql+psycopg://postgres:password@localhost:5432/taskapp
 ACCESS_TOKEN_EXPIRE_MINUTES=30
 
+
+For production deployment, configure these variables directly in your hosting provider.
+
+🔄 Authentication Flow
+
+User logs in → receives:
+
+Short-lived Access Token
+
+Long-lived Refresh Token
+
+On 401 response:
+
+Frontend automatically calls /auth/refresh
+
+New access token issued
+
+Original request retried
+
+If refresh fails:
+
+User is logged out securely
+
 📜 License
 
 MIT License © 2026 Abhinav K
 
-🌟 Future Improvements
+🚀 Future Improvements
 
-Role-based access control
-Email verification
-CI/CD Pipeline
-Unit & Integration test expansion
+Role-Based Access Control (RBAC)
+
+Email verification & password reset
+
+CI/CD pipeline integration
+
+Expanded unit & integration test coverage
+
+Observability & monitoring
