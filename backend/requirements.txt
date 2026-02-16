@@ -1,0 +1,25 @@
+# Core API
+fastapi
+uvicorn[standard]
+
+# Database
+sqlalchemy
+psycopg[binary]
+alembic
+
+# Auth & Security
+python-jose[cryptography]
+passlib[argon2]
+python-multipart
+
+# Pydantic v2 support
+pydantic
+pydantic-settings
+email-validator
+
+# Env support
+python-dotenv
+
+# Testing
+pytest
+pytest-asyncio

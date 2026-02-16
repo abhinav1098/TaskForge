@@ -1,0 +1,43 @@
+services:
+
+  db:
+    image: postgres:15
+    container_name: taskapp_db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin123
+      POSTGRES_DB: taskapp
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  backend:
+    build:
+      context: ./backend
+    container_name: taskapp_backend
+    restart: always
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgresql+psycopg://postgres:admin123@db:5432/taskapp
+      SECRET_KEY: kFr4IMYcrQ3Cc6lhAnn0oxM3HnjerzMM7TJvZDhdQ6qK9Bsy4-3yYth9CPM41xqsG8u6RIHetgTf7jR4zvdVRA
+      ACCESS_TOKEN_EXPIRE_MINUTES: 15
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: taskapp_frontend
+    restart: always
+    depends_on:
+      - backend
+    ports:
+      - "5173:80"
+
+volumes:
+  postgres_data:
