@@ -12,9 +12,8 @@ class Settings(BaseSettings):
     CORS_ORIGINS: list[str] = ["http://localhost:5173"]
     ENVIRONMENT: str = Field(default="development")
 
+    # 🔥 REMOVE env_file
     model_config = SettingsConfigDict(
-        env_file=".env",
-        env_file_encoding="utf-8",
         case_sensitive=True,
     )
 
@@ -22,13 +21,9 @@ class Settings(BaseSettings):
 @lru_cache
 def get_settings() -> Settings:
     if TYPE_CHECKING:
-        # This block is only seen by type checkers (Pylance)
         return Settings(
             SECRET_KEY="x" * 32,
-            DATABASE_URL="postgresql://placeholder"
+            DATABASE_URL="postgresql://placeholder",
         )
 
     return Settings()
-
-
-settings = get_settings()
